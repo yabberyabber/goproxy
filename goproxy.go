@@ -389,6 +389,13 @@ func (g *Goproxy) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if strings.HasPrefix(modulePath, "arista.com") {
+		fmt.Printf("Asking for... %q\n", modulePath)
+		modulePath = "gitarband-gerrit.infra.corp.arista.io" +
+			strings.TrimPrefix(modulePath, "arista.com")
+		fmt.Printf("Redirected to... %q\n", modulePath)
+	}
+
 	nameBase := nameParts[1]
 	nameExt := path.Ext(nameBase)
 	switch nameExt {
